@@ -1,0 +1,53 @@
+class Mahasiswa:
+    def __init__(self, Nama, NIM, Prodi):
+        self.Nama = Nama
+        self.NIM = NIM
+        self.Prodi = Prodi
+        self.ipk = 0.0
+        self.total_sks = 0
+
+    def hitungIps(self):
+        nilaiAngka = {
+            "A": 4,
+            "A-": 3.7,
+            "B+": 3.3,
+            "B": 3,
+            "B-": 2.7,
+            "C+": 2.3,
+            "C": 2,
+            "D": 1,
+            "E": 0
+        }
+
+        print("=== INPUT NILAI MATA KULIAH ===")
+        jumlah_matkul = int(input("Masukkan jumlah mata kuliah: "))
+
+        for i in range(jumlah_matkul):
+            nama_matkul = input(f"Nama mata kuliah ke-{i+1}: ")
+            nilai_huruf = input(f"Nilai mata kuliah {nama_matkul}: ")
+            sks = int(input(f"SKS mata kuliah {nama_matkul}: "))
+
+            if nilai_huruf in nilaiAngka:
+                nilai_angka = nilaiAngka[nilai_huruf]
+                self.ipk += nilai_angka * sks
+                self.total_sks += sks
+            else:
+                print(f"Nilai mata kuliah {nama_matkul} tidak valid, nilai diabaikan.")
+
+        if self.total_sks > 0:
+            self.ipk /= self.total_sks
+
+    def printInformasi(self):
+        print("=== INFORMASI MAHASISWA ===")
+        print("Name:", self.Nama)
+        print("NIM:", self.NIM)
+        print("Prodi:", self.Prodi)
+        print("IPS:", round(self.ipk, 2))
+
+nama_mahasiswa = input("Nama Mahasiswa: ")
+nim_mahasiswa = input("NIM Mahasiswa: ")
+prodi_mahasiswa = input("Prodi Mahasiswa: ")
+
+mahasiswa = Mahasiswa(nama_mahasiswa, nim_mahasiswa, prodi_mahasiswa)
+mahasiswa.hitungIps()
+mahasiswa.printInformasi()
